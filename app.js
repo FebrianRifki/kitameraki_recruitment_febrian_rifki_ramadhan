@@ -3,14 +3,18 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 const config = require('./app/config/config')
+const taskRoute = require('./app/routes/task_route');
 
 app.get('/', (req, res) => {
     res.send(
-        "welcome to node js app");
+        "server is running");
 });
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use('/', taskRoute);
 
 mongoose.connect(config.mongoURI, config.connectOptions).then(
     () => {
