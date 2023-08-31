@@ -4,7 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 const config = require('./app/config/config')
 const taskRoute = require('./app/routes/task_route');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./app/config/swagger_def');
 
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.get('/', (req, res) => {
     res.send(
         "server is running");
