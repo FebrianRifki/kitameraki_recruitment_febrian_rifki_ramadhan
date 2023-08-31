@@ -189,7 +189,7 @@ taskRoute.delete('/task/:id', task.deleteTask);
  * @swagger
  * /task/{id}:
  *   delete:
- *     summary: delete task by ID
+ *     summary: Delete task by ID
  *     tags:
  *        - Tasks
  *     parameters:
