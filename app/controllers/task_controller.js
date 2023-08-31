@@ -4,16 +4,36 @@ const mongoose = require('mongoose');
 exports.createTask = async (req, res) => {
     try {
         const newTask = req.body;
-        const createdTask = await Task.create(newTask);
-        res.status(201).send({
-            status: "success",
-            message: "success",
-            data: createdTask
-        });
+        if (req.body.id == "") {
+            return res.status(400).send({
+                status: "Bad Request",
+                message: "Id is required",
+                data: {}
+            });
+        } else if (req.body.title == "") {
+            return res.status(400).send({
+                status: "Bad Request",
+                message: "Title is required",
+                data: {}
+            });
+        } else if (req.body.status == "") {
+            return res.status(400).send({
+                status: "Bad Request",
+                message: "Status is required",
+                data: {}
+            });
+        } else {
+            const createdTask = await Task.create(newTask);
+            return res.status(201).send({
+                status: "Success",
+                message: "Success",
+                data: createdTask
+            });
+        }
     } catch (error) {
         res.status(500).send({
             status: "Failed",
-            message: "Internal Server Error",
+            message: "Internal Server Error!",
             data: {}
 
         });
@@ -34,7 +54,7 @@ exports.getAllTask = async (req, res) => {
     } catch (error) {
         res.status(500).send({
             status: "Failed",
-            message: error.message,
+            message: "Internal Server Error!",
             data: {}
 
         });
@@ -61,7 +81,7 @@ exports.findOneData = async (req, res) => {
     } catch (error) {
         res.status(500).send({
             status: "Failed",
-            message: error.message,
+            message: "Internal Server Error!",
             data: {}
         });
     }
@@ -70,7 +90,7 @@ exports.findOneData = async (req, res) => {
 exports.updateTask = async (req, res) => {
     try {
         const taskId = req.params.id;
-        const updateData = req.body
+        const updateData = req.body;
         const task = await Task.find({ id: taskId });
         if (task.length === 0) {
             res.status(404).send({
@@ -79,6 +99,16 @@ exports.updateTask = async (req, res) => {
                 data: {}
             });
         } else {
+            const requiredFields = ["id", "title", "status"];
+            for (const field of requiredFields) {
+                if (updateData.hasOwnProperty(field) && updateData[field] === "") {
+                    return res.status(400).send({
+                        status: "Bad Request",
+                        message: `${field} cannot be updated to empty string`,
+                        data: {}
+                    });
+                }
+            }
             await Task.updateMany({ id: taskId }, updateData);
             res.status(200).send({
                 status: "Success",
@@ -89,7 +119,7 @@ exports.updateTask = async (req, res) => {
     } catch (error) {
         res.status(500).send({
             status: "Failed",
-            message: error.message,
+            message: "Internal Server Error!",
             data: {}
         });
     }
@@ -106,7 +136,7 @@ exports.deleteTask = async (req, res) => {
                 data: {}
             });
         }
-        res.send({
+        res.status(200).send({
             "status": "Success",
             "message": `Success delete Task`,
             "data": {}
