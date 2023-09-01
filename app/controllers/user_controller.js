@@ -66,7 +66,8 @@ exports.login = async (req, res) => {
         return res.status(200).json({
             status: "Success",
             message: "Login successful",
-            token: token,
+            access_token: token,
+            token_type: "bearer",
             data: {}
         });
     } catch (error) {
@@ -79,9 +80,9 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-    const token = req.headers.token;
+    const bearerAuth = req.headers.bearerAuth;
     try {
-        const deletedSession = await UserSession.findOneAndDelete({ token: token });
+        const deletedSession = await UserSession.findOneAndDelete({ token: bearerAuth });
 
         if (!deletedSession) {
             return res.status(401).json({

@@ -2,15 +2,15 @@ const UserSession = require('../models/user_session');
 
 async function verifyToken(req, res, next) {
     try {
-        if (req.headers.token == "") {
+        if (req.headers.bearerAuth == "") {
             return res.status(401).send({
                 status: "Unauthorized",
                 message: "Token is missing",
                 data: {}
             });
         }
-        const token = req.headers.token;
-        const userSession = await UserSession.findOne({ token: token });
+        const bearerAuth = req.headers.bearerAuth;
+        const userSession = await UserSession.findOne({ token: bearerAuth });
         if (!userSession) {
             return res.status(401).send({
                 status: "Unauthorized",

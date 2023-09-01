@@ -7,7 +7,19 @@ const options = {
             version: '1.0.0'
         },
     },
-    apis: ['./app/routes/task_route.js']
+    securitySchemes: {
+        bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+        },
+    },
+    security: [
+        {
+            bearerAuth: [],
+        },
+    ],
+    apis: ['./app/routes/*.js']
 };
 
 const specs = swaggerJsdoc(options);
