@@ -1,11 +1,12 @@
 const taskRoute = require('express').Router();
 const { task } = require('../controllers')
+const verifyToken = require('../middleware/verify_token');
 
-taskRoute.post('/task', task.createTask);
-taskRoute.get('/task', task.getAllTask);
-taskRoute.get('/task/:id', task.findOneData);
-taskRoute.patch('/task/:id', task.updateTask);
-taskRoute.delete('/task/:id', task.deleteTask);
+taskRoute.post('/task', verifyToken, task.createTask);
+taskRoute.get('/task', verifyToken, task.getAllTask);
+taskRoute.get('/task/:id', verifyToken, task.findOneData);
+taskRoute.patch('/task/:id', verifyToken, task.updateTask);
+taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
 
 
 /**

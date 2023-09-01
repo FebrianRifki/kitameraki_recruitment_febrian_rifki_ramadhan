@@ -80,11 +80,28 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     const token = req.headers.token;
-    await UserSession.findOneAndDelete({ token: token });
-    res.status(200).send({
-        status: "Success",
-        message: "You have been successfully logged out",
-        data: {}
-    });
+    try {
+        const deletedSession = await UserSession.findOneAndDelete({ token: token });
+
+        if (!deletedSession) {
+            return res.status(401).json({
+                status: "Unauthorized",
+                message: "Invalid or expired token. You are not logged in.",
+                data: {}
+            });
+        }
+        res.status(200).json({
+            status: "Success",
+            message: "You have been successfully logged out",
+            data: {}
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "Failed",
+            message: "Internal Server Error",
+            data: {}
+        });
+    }
+
 }
 
