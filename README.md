@@ -1,8 +1,5 @@
 # kitameraki_recruitment_febrian_rifki_ramadhan
 
-
-Here's the translation of your message into English:
-
 This project uses Node.js version 18.14.2 and MongoDB version 7.0.0, make sure to use the appropriate versions so that the application runs smoothly.
 
 Installation steps:
