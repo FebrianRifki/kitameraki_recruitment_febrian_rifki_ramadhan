@@ -1,12 +1,12 @@
 const taskRoute = require('express').Router();
 const { task } = require('../controllers')
+const verifyToken = require('../middleware/verify_token');
 
-taskRoute.post('/task', task.createTask);
-taskRoute.get('/task', task.getAllTask);
-taskRoute.get('/task/:id', task.findOneData);
-taskRoute.patch('/task/:id', task.updateTask);
-taskRoute.delete('/task/:id', task.deleteTask);
-
+taskRoute.post('/task', verifyToken, task.createTask);
+taskRoute.get('/task', verifyToken, task.getAllTask);
+taskRoute.get('/task/:id', verifyToken, task.findOneData);
+taskRoute.patch('/task/:id', verifyToken, task.updateTask);
+taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
 
 /**
  * @swagger
@@ -102,52 +102,6 @@ taskRoute.delete('/task/:id', task.deleteTask);
  *            description: Task not found
  *       '500':
  *            description: Internal Server Error!
- */
-
-/**
- * @swagger
-* /task:
- *   post:
- *     summary: Create a new task
- *     tags:
- *       - Tasks
- *     requestBody:
- *       description: Data for creating a new task
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *               title:
- *                 type: string
- *               description:
- *                 type: string
- *               dueDate: 
- *                 type: string
- *               priority:
- *                 type: string
- *               status:
- *                 type: string
- *               tags: 
- *                 type: array
- *             example:
- *               id: 1
- *               title: New Task
- *               description: This is a new task.
- *               dueDate: 2023-08-30T10:00:00Z
- *               priority: medium
- *               status: todo
- *               tags: ["sample"]
- *     responses:
- *       '201':
- *         description: Created
- *       '400':
- *         description: Bad Request
- *       '500':
- *         description: Internal Server Error!
  */
 
 /**
