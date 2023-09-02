@@ -62,21 +62,23 @@ taskRoute.delete('/task/:id', task.deleteTask);
  *     tags:
  *        - Tasks
  *     parameters:
- *        - in: query
- *          name: page
- *          schema:
- *            type: integer
- *          description: Page number
- *        - in: query
- *          name: limit
- *          schema:
- *            type: integer
- *          description: Number of items per page     
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         default: 10
+ *         description: Number of items per page
  *     responses:
  *       '200':
- *            description: Success
+ *         description: Success
  *       '500':
- *            description: Internal Server Error!
+ *         description: Internal Server Error!
  */
 
 /**

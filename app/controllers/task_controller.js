@@ -41,8 +41,8 @@ exports.createTask = async (req, res) => {
 
 exports.getAllTask = async (req, res) => {
     try {
-        const page = parseInt(req.query.page);
-        const limit = parseInt(req.query.limit);
+        const page = req.query.page ? parseInt(req.query.page) : 1;
+        const limit = req.query.limit ? parseInt(req.query.limit) : 10;
         const skip = (page - 1) * limit;
         const tasks = await Task.find().skip(skip).limit(limit);
         res.status(200).send({
