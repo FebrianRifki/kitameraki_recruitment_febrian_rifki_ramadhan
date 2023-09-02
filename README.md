@@ -11,4 +11,6 @@ Installation steps:
 3. Run npm install.
 4. Start the application using the command node app.js.
 
+use npx jest to run unit testing
+
 Note: There are 2 main branches, part_one and part_two. Make sure to run npm install after switching branches
