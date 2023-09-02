@@ -2,6 +2,8 @@ const Task = require('../models/task');
 
 exports.createTask = async (req, res) => {
     try {
+        const priorityEnum = ["low", "medium", "high"];
+        const statusEnum = ["todo", "in-progress", "completed"];
         const newTask = req.body;
         if (req.body.id == "") {
             return res.status(400).send({
@@ -21,14 +23,20 @@ exports.createTask = async (req, res) => {
                 message: "Status is required",
                 data: {}
             });
-        } else {
-            const createdTask = await Task.create(newTask);
-            return res.status(201).send({
-                status: "Success",
-                message: "Success",
-                data: createdTask
-            });
-        }
+        } else
+            if (!priorityEnum.includes(req.body.priority) || !statusEnum.includes(req.body.status)) {
+                return res.status(400).send({
+                    status: "Bad Request",
+                    message: "Wrong value on priority or status"
+                })
+            } else {
+                const createdTask = await Task.create(newTask);
+                return res.status(201).send({
+                    status: "Success",
+                    message: "Success",
+                    data: createdTask
+                });
+            }
     } catch (error) {
         res.status(500).send({
             status: "Failed",
