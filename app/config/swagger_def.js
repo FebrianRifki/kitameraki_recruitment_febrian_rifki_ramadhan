@@ -1,25 +1,27 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const options = {
     definition: {
-        openapi: '3.0.0',
+        openapi: '3.0.1',
         info: {
             title: 'Kitameraki Technical Test API ',
             version: '1.0.0'
         },
-    },
-    securitySchemes: {
-        bearerAuth: {
-            type: 'http',
-            scheme: 'bearer',
-            bearerFormat: 'JWT',
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
         },
+        security: [
+            {
+                bearerAuth: [],
+            },
+        ],
     },
-    security: [
-        {
-            bearerAuth: [],
-        },
-    ],
-    apis: ['./app/routes/*.js']
+    apis: ['./app/routes/task_route.js', './app/routes/user_route.js']
 };
 
 const specs = swaggerJsdoc(options);

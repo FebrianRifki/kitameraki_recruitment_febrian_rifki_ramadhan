@@ -76,13 +76,9 @@ userRoute.get('/user/logout', user.logout);
  * @swagger
  * /user/logout:
  *   get:
- *     summary: Authenticate and get an access token
+ *     summary: remove access token
  *     tags:
  *       - User
- *     parameters:
- *       - name: Authorization
- *         in: header
- *         required: true
  *     responses:
  *       '200':
  *         description: Created
@@ -90,7 +86,5 @@ userRoute.get('/user/logout', user.logout);
  *         description: Unauthorized
  *       '500':
  *         description: Internal Server Error! 
- *     security:
- *       - bearerAuth: [] 
  */
 module.exports = userRoute;

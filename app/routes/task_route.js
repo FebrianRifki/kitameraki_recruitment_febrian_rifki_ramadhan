@@ -15,13 +15,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *     summary: Create a new task
  *     tags:
  *       - Tasks
- *     parameters:
- *       - name: Authorization
- *         in: header
- *         required: true
- *         description: Bearer token
- *         schema:
- *           type: string
  *     requestBody:
  *       description: Data for creating a new task
  *       required: true
@@ -59,8 +52,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *         description: Bad Request
  *       '500':
  *         description: Internal Server Error!
- *     security:
- *       - bearerAuth: [] 
  */
 
 /**
@@ -71,29 +62,23 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *     tags:
  *        - Tasks
  *     parameters:
- *       - name: Authorization
- *         in: header
- *         required: true
- *         description: Bearer token
- *         schema:
- *           type: string
  *       - in: query
  *         name: page
  *         schema:
  *           type: integer
+ *         default: 1
  *         description: Page number
  *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
+ *         default: 10
  *         description: Number of items per page
  *     responses:
  *       '200':
  *         description: Success
  *       '500':
  *         description: Internal Server Error!
- *     security:
- *       - bearerAuth: [] 
  */
 
 /**
@@ -104,12 +89,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *     tags:
  *        - Tasks
  *     parameters:
- *        - name: Authorization
- *          in: header
- *          required: true
- *          description: Bearer token
- *          schema:
- *           type: string
  *        - in: path
  *          name: id
  *          schema:
@@ -123,72 +102,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *            description: Task not found
  *       '500':
  *            description: Internal Server Error!
- *     security:
- *       - bearerAuth: [] 
- */
-
-/**
- * @swagger
-* /task:
- *   post:
- *     summary: Create a new task
- *     tags:
- *       - Tasks
- *     parameters:
- *       - name: Authorization
- *         in: header
- *         required: true
- *         description: Bearer token
- *         schema:
- *           type: string
- *       - in: query
- *         name: page
- *         schema:
- *           type: integer
- *         description: Page number
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *     requestBody:
- *       description: Data for creating a new task
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *               title:
- *                 type: string
- *               description:
- *                 type: string
- *               dueDate: 
- *                 type: string
- *               priority:
- *                 type: string
- *               status:
- *                 type: string
- *               tags: 
- *                 type: array
- *             example:
- *               id: 1
- *               title: New Task
- *               description: This is a new task.
- *               dueDate: 2023-08-30T10:00:00Z
- *               priority: medium
- *               status: todo
- *               tags: ["sample"]
- *     responses:
- *       '201':
- *         description: Created
- *       '400':
- *         description: Bad Request
- *       '500':
- *         description: Internal Server Error!
- *     security:
- *       - bearerAuth: [] 
  */
 
 /**
@@ -199,9 +112,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *     tags:
  *       - Tasks
  *     parameters:
- *       - name: Authorization
- *         in: header
- *         required: true
  *       - in: path
  *         name: id
  *         schema:
@@ -240,8 +150,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *         description: Task not found
  *       '500':
  *         description: Internal Server Error
- *     security:
- *       - bearerAuth: [] 
  */
 
 /**
@@ -252,9 +160,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *     tags:
  *        - Tasks
  *     parameters:
- *        - name: Authorization
- *          in: header
- *          required: true
  *        - in: path
  *          name: id
  *          schema:
@@ -268,8 +173,6 @@ taskRoute.delete('/task/:id', verifyToken, task.deleteTask);
  *            description: Task not found
  *       '500':
  *            description: Internal Server Error!
- *     security:
- *       - bearerAuth: [] 
  */
 
 module.exports = taskRoute;

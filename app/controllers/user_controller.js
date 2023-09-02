@@ -80,8 +80,16 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-    const bearerAuth = req.headers.bearerAuth;
     try {
+        if (!req.headers.hasOwnProperty('authorization')) {
+            return res.status(401).send({
+                status: "Unauthorized",
+                message: "Authentication token is missing. Please provide a valid token.",
+                data: {}
+            });
+        }
+        const splitedHeaders = req.headers.authorization.split(/(\s+)/);
+        const bearerAuth = splitedHeaders[2];
         const deletedSession = await UserSession.findOneAndDelete({ token: bearerAuth });
 
         if (!deletedSession) {

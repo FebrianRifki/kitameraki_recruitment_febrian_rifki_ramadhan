@@ -9,14 +9,12 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./app/config/swagger_def');
 const cors = require('cors');
 
-
+app.use(cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.get('/', (req, res) => {
     res.send(
         "server is running");
 });
-
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
